@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"shorturl.com/shorturl/rpc/transform/internal/config"
 	"shorturl.com/shorturl/rpc/transform/model"
 )
@@ -13,5 +14,6 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
+		Model:  model.NewShorturlModel(sqlx.NewMysql(c.DataSource), c.Cache), // manual code
 	}
 }
