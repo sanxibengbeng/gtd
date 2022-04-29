@@ -3,31 +3,28 @@ package logic
 import (
 	"context"
 
-	"shorturl.com/shorturl/internal/svc"
-	"shorturl.com/shorturl/internal/types"
+	"shorturl.com/shorturl/rpc/transform/internal/svc"
+	"shorturl.com/shorturl/rpc/transform/transform"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type ShortenLogic struct {
-	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	logx.Logger
 }
 
 func NewShortenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ShortenLogic {
 	return &ShortenLogic{
-		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *ShortenLogic) Shorten(req *types.ShortenReq) (resp *types.ShortenResp, err error) {
-	resp = &types.ShortenResp{
-		Shorten: "hi",
-	}
+func (l *ShortenLogic) Shorten(in *transform.ShortenReq) (*transform.ShortenResp, error) {
 	// todo: add your logic here and delete this line
 
-	return
+	return &transform.ShortenResp{}, nil
 }
