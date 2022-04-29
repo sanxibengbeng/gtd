@@ -5,6 +5,7 @@ import (
 
 	"shorturl.com/shorturl/internal/svc"
 	"shorturl.com/shorturl/internal/types"
+	"shorturl.com/shorturl/rpc/transform/transformer"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,8 +24,16 @@ func NewExpandLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ExpandLogi
 	}
 }
 
-func (l *ExpandLogic) Expand(req *types.ExpandReq) (resp *types.ExpandResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *ExpandLogic) Expand(req *types.ExpandReq) (*types.ExpandResp, error) {
+	resp, err := l.svcCtx.Transformer.Expand(l.ctx, &transformer.ExpandReq{
+		Shorten: req.Shorten,
+	})
 
-	return
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.ExpandResp{
+		Url: resp.Url,
+	}, nil
 }
